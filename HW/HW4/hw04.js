@@ -66,7 +66,7 @@ function numToLet(n) {
       num = "bốn";
       break;
     case 5:
-      num = "năm";
+      num = "lăm";
       break;
     case 6:
       num = "sáu";
@@ -184,8 +184,12 @@ function numToLet(n) {
       break;
   }
   if (a10 !== 0 && a === 1) num = "mốt";
+  if (a10 === 0 && a === 5) num = "năm";
   if (n % 100 === 0) return `${thousand} ${hundred}`;
+  if (n < 100 && n > 10) return `${dozen} ${num}`;
+  if (n < 10) return `${num}`;
+
   return `${thousand} ${hundred} ${dozen} ${num}`;
 }
 
-console.log(numToLet(3021));
+console.log(numToLet(3105));
