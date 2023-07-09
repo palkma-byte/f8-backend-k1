@@ -1,5 +1,5 @@
 let lyric =
-  "Officia exercitation reprehenderit sint proident Lorem tempor cupidatat. Adipisicing pariatur qui ex ut sunt officia dolore officia pariatur anim culpa aliquip.";
+  "Incididunt culpa deserunt ut est dolore aute enim. Minim ut ex nostrud ea in fugiat velit exercitation cillum. Aliquip irure est dolore laboris reprehenderit aliquip veniam est laboris minim laborum reprehenderit. Laborum ut dolore cupidatat dolore Lorem magna Lorem eu deserunt do velit est anim. Minim sint deserunt deserunt sit sit culpa consectetur.";
 
 let words = lyric.split(" ");
 numWord = lyric.split(" ").length;
@@ -22,7 +22,6 @@ setInterval(() => {
   }
 
   lyricRight = lyricRight.replace(highlightWord + " ", "");
-  
 
   lyricDisplay =
     lyricLeft + "<span id ='hl'> " + highlightWord + " </span>" + lyricRight;
@@ -34,8 +33,7 @@ setInterval(() => {
 
   document.write(lyricDisplay);
   document.getElementById("hl").style.color = "red";
-  
-  
+
   if (lyricLeft == "") {
     lyricLeft = lyric;
   }
@@ -46,8 +44,8 @@ setInterval(() => {
   if (lyricRight == "") {
     lyricRight = lyric;
   }
-}, 500);
 
-setInterval(() => {
-  document.body.innerHTML = "";
-}, 499.9999999);
+  setTimeout(() => {
+    document.body.innerHTML = "";
+  }, 480);
+}, 500);
