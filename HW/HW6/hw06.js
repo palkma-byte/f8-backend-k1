@@ -62,9 +62,26 @@ console.log(`Mảng sau khi lọc trùng: ${nonDuplicateNums}`);
 
 //Bai 4
 
-let numbers = [51, 13, 93, 8, 100];
-let element = 4;
+let numbers = [1, 3, 93, 8, 100];
+let element = 44;
 
-numbers.push(element);
+let arr1 = [];
+let arr2 = [];
+
+//sap xep mang theo thu tu tang dan
 numbers.sort((a, b) => a - b);
-console.log(`Mảng đã sắp xếp: ` + numbers);
+let sortedNumber = [];
+
+//them 1 so vao mang
+for (let numKey in numbers) {
+  if (numbers[numKey] > element) {
+    arr1 = numbers.slice(0, numKey);
+    arr1.push(element);
+    arr2 = numbers.slice(numKey);
+
+    break;
+  }
+}
+sortedNumber = sortedNumber.concat(arr1, arr2);
+
+console.log(`Mảng đã sắp xếp: ` + sortedNumber);

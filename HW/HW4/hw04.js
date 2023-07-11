@@ -27,10 +27,10 @@ function calIndex(n) {
   return k;
 }
 
-console.log(reverseNum(10205));
+console.log(reverseNum(102053));
 
 function reverseNum(n) {
-  if (n < 0) {
+  if (n < 0 || Number.isInteger(n) === false) {
     return "So da nhap khong thoa man";
   }
   let a = 0;
@@ -51,7 +51,7 @@ function numToLet(n) {
     a1000 = (n - a100 * 100 - a10 * 10 - a) / 1000;
 
   let thousand, hundred, dozen, num;
-  if (n > 9999 || n < 0) return "So da nhap khong thoa man";
+  if (n > 9999 || n < 0 || Number.isInteger(n) === false) return "So da nhap khong thoa man";
   switch (a) {
     case 1:
       num = "một";
@@ -192,4 +192,4 @@ function numToLet(n) {
   return `${thousand} ${hundred} ${dozen} ${num}`;
 }
 
-console.log(numToLet(3105));
+console.log(numToLet(31));
