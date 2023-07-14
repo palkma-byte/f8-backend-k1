@@ -1,19 +1,25 @@
 //Bai 1
 
-let ex1 = [1, 4, 7, 9, 23, 34];
+let ex1 = [111, 4, 7, 9, 23, 34];
 let max = ex1[0],
   min = ex1[0];
+let maxKey = 0,
+  minKey = 0;
 
 for (ex1Key in ex1) {
   if (ex1[ex1Key] > max) {
     max = ex1[ex1Key];
+    maxKey = ex1Key;
   }
   if (ex1[ex1Key] < min) {
     min = ex1[ex1Key];
+    minKey = ex1Key;
   }
 }
 
-console.log(`Min: ${min}, Max: ${max}`);
+console.log(
+  `So Min: ${min} o vi tri ${minKey}, Max: ${max} o vi tri ${maxKey}`
+);
 
 //Bai 2
 
@@ -24,7 +30,7 @@ let sumPrime = 0;
 function isPrime(n) {
   if (Number.isInteger(n) === false) return false;
   if (n === 0 || n === 1) return false;
-  for (let i = 2; i < Math.sqrt(n); i++) {
+  for (let i = 2; i <= Math.sqrt(n); i++) {
     if (n % i === 0) return false;
   }
   return true;
@@ -63,7 +69,7 @@ console.log(`Mảng sau khi lọc trùng: ${nonDuplicateNums}`);
 //Bai 4
 
 let numbers = [1, 3, 93, 8, 100];
-let element = 44;
+let element = 14;
 
 let arr1 = [];
 let arr2 = [];
@@ -80,8 +86,14 @@ for (let numKey in numbers) {
     arr2 = numbers.slice(numKey);
 
     break;
+  } else if (
+    numbers.every((num) => {
+      return num < element;
+    })
+  ) {
+    arr1 = numbers;
+    arr2 = element;
   }
 }
 sortedNumber = sortedNumber.concat(arr1, arr2);
-
 console.log(`Mảng đã sắp xếp: ` + sortedNumber);
