@@ -28,7 +28,7 @@ console.log(arrReduct(arr));
 
 //Bai 3
 
-let arr1 = [["a", 1, true], ["b", 2, false], 31, ["c", false], [123, false]];
+let arr1 = [["a", 1, true], ["b", 2, false], 31, ["c", false, null], [123, false], null, undefined];
 result = [];
 
 let stringType = [],
@@ -41,7 +41,7 @@ function dataClassify(n) {
     arr2.forEach((element) => {
       if (typeof element === "string") {
         stringType.push(element);
-      } else if (Number.isInteger(element)) {
+      } else if (typeof element === number) {
         numType.push(element);
       } else if (typeof element === "boolean") {
         booleanType.push(element);
