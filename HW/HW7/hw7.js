@@ -41,7 +41,7 @@ function dataClassify(n) {
     arr2.forEach((element) => {
       if (typeof element === "string") {
         stringType.push(element);
-      } else if (typeof element === number) {
+      } else if (typeof element === "number") {
         numType.push(element);
       } else if (typeof element === "boolean") {
         booleanType.push(element);
