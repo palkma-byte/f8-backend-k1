@@ -79,12 +79,15 @@ console.log(results);
 
 //Bai 2
 
-Array.prototype.reduce2 = function (callback) {
-  let result;
+Array.prototype.reduce2 = function (callback, initialValue) {
+  if (!this.length) {
+    return "Wrong input";
+  }
 
-  for (let i = 1; i < this.length; i++) {
-    this[i] = callback(this[i - 1], this[i]);
-    result = this[i];
+  let result = initialValue !== undefined ? initialValue : this[0];
+  let startIndex = initialValue !== undefined ? 0 : 1;
+  for (let i = startIndex; i < this.length; i++) {
+    result = callback(result, this[i]);
   }
   return result;
 };
@@ -92,7 +95,7 @@ Array.prototype.reduce2 = function (callback) {
 let arr2 = [`Welcome`, `to`, `the`, `city`];
 let result2 = arr2.reduce2(function (pre, cur) {
   return pre + " " + cur;
-});
+}, "You are");
 console.log(result2);
 
 //Bai 3
@@ -115,12 +118,21 @@ let result3 = arr3.filter2(function (element) {
 console.log(result3);
 
 //Bai 4
-
 Object.prototype.getCurrency = function (params) {
-  if (!parseInt(this) || !params) {
+  if (isNaN(this) || !params) {
     return "Wrong input";
+  } else {
+    let stringValue = this.toString();
+    result = [];
+    for (let i = stringValue.length - 1; i > 0; i--) {
+      if (i % 3 === 0) {
+        result.push(stringValue.slice(0, stringValue.length - i));
+        stringValue = stringValue.slice(-i);
+      }
+    }
+    result.push(stringValue);
+    return result + params;
   }
-  return this + params;
 };
 
-console.log(("12000000").getCurrency("sad"));
+console.log("123456789".getCurrency(" sad"));
