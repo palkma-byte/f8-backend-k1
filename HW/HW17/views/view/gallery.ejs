@@ -1,0 +1,37 @@
+<!-- gallery section start -->
+<div class="gallery_section layout_padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <% const {gallery_taital,gallery_text} = gallery1 %>
+        <h1 class="gallery_taital"><%= gallery_taital %></h1>
+        <p class="gallery_text"><%= gallery_text %></p>
+      </div>
+    </div>
+    <div class="">
+      <% gallery2.forEach(imageRow => { %>
+      <div class="gallery_section_2">
+        <div class="row">
+          <% imageRow.forEach(image => { %>
+          <div class="col-md-4">
+            <div class="container_main">
+              <img src="images/<%= image %>" alt="Avatar" class="image" />
+              <div class="overlay">
+                <div class="text">
+                  <a href="#"
+                    ><i class="fa fa-search" aria-hidden="true"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <% }); %>
+    </div>
+    <div class="seemore_bt"><a href="#">See More</a></div>
+  </div>
+</div>
+<!-- gallery section end -->
