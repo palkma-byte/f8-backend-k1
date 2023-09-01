@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoApp</title>
+    <style>
+      .button-link {
+        display: inline-block;
+        padding: 5px 20px;
+        color: #007bff;
+        background-color: #d0dfdf;
+        border: 2px solid #0c0c79;
+        text-decoration: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .task-list {
+        list-style: none;
+      }
+      .task-item {
+        margin: 10px 0;
+      }
+      .completed {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <form
+      id="myForm"
+      action="/todo"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        id="taskInput"
+        name="task"
+        placeholder="Enter todo task!"
+      />
+      <button type="submit" class="button-link">Add Task</button>
+    </form>
+
+    <h2>Tasks:</h2>
+    <ul class="task-list"></ul>
+
+    <a href="tutorial" class="button-link">Need tutorial?</a>
+
+    <script>
+     
+      window.onload = function () {
+        const tasksCookie = (document.cookie)
+          .split(";")
+          .find((cookie) => cookie.trim().startsWith("tasks="));
+
+        if (tasksCookie) {
+          let tasks = JSON.parse(tasksCookie.split("=")[1]);
+          const taskList = document.querySelector(".task-list");
+
+          tasks.forEach((task, index) => {
+            const taskItem = document.createElement("li");
+            taskItem.classList.add("task-item");
+
+            if (task.completed) {
+              taskItem.classList.add("completed");
+            }
+
+            const taskIdElement = document.createElement("span");
+            taskIdElement.textContent = `ID: ${task.id}`;
+            taskIdElement.addEventListener("dblclick", () => {            
+              tasks.splice(index, 1);
+              taskList.removeChild(taskItem);
+                           updateTasksCookie();
+            });
+
+            const taskTextElement = document.createElement("span");
+            taskTextElement.textContent = ` Task: ${task.text}`;
+            taskTextElement.addEventListener("click", () => {
+              const newTaskText = prompt("Enter new task text:", task.text);
+              if (newTaskText !== null) {
+                task.text = newTaskText;
+                taskTextElement.textContent = ` Task: ${task.text}`;
+
+                updateTasksCookie();
+              }
+            });
+
+            const completionStatusElement = document.createElement("span");
+            completionStatusElement.classList.add("completion-status");
+            completionStatusElement.textContent = "Completed";
+            completionStatusElement.addEventListener("click", () => {
+              task.completed = !task.completed;
+              completionStatusElement.textContent = task.completed
+                ? "Completed"
+                : "Not Completed";
+              taskItem.classList.toggle("completed");
+
+              updateTasksCookie();
+            });
+
+            taskItem.appendChild(taskIdElement);
+            taskItem.appendChild(taskTextElement);
+            taskItem.appendChild(completionStatusElement);
+            taskList.appendChild(taskItem);
+          });
+
+          function updateTasksCookie() {
+            document.cookie = `tasks=${JSON.stringify(tasks)}`;
+          }
+
+          // Save tasks to cookie before unloading the page
+          window.addEventListener("beforeunload", () => {
+            updateTasksCookie();
+          });
+        }
+      };
+    </script>
+  </body>
+</html>
