@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Verify
+    <h4>Nhap ma xac minh</h4>
+    <p><%= msg ?? "" %></p>
+    <form action="/otp" method="POST">
+        <label for="otp">Verify phone number:</label>
+        <input type="text" id="otp" name="otp" required>
+        <br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

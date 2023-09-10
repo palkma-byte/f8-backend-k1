@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Home page
+    <p><%= msg ?? "" %></p>
+    <form action="/phonenumber" method="POST">
+        <label for="phone">Verify phone number:</label>
+        <input type="text" id="phone" name="phone" required>
+        <br>
+        
+        <input type="submit" value="Submit">
+    </form>
+    
+</body>
+</html>
