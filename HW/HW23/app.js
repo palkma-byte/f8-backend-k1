@@ -6,7 +6,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const session = require("express-session");
 const flash = require("connect-flash");
-var md5 = require("md5") //asdadadas
+var md5 = require("md5") 
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
