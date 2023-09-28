@@ -1,5 +1,5 @@
 const { Customer } = require("../models");
-const {User} = require("../models")
+const { User } = require("../models");
 const { Province } = require("../models");
 const moment = require("moment");
 const { Op } = require("sequelize");
@@ -69,8 +69,15 @@ module.exports = {
       limit: +PER_PAGE,
       offset: offset,
     });
+    let userList = {};
+
     
+    for (const customer of customerList) {
+      const user = await customer.getUser();
+      userList[customer.name] = user.name;
+    }
     
+    console.log(userList);
 
     const msg = req.flash("msg");
     if (!req.cookies.auth) {
@@ -84,6 +91,7 @@ module.exports = {
         page,
         getPaginateUrl,
         msg,
+        userList
       });
     } else {
       res.render("customers/index", {
