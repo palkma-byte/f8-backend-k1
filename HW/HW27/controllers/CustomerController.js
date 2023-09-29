@@ -68,16 +68,9 @@ module.exports = {
       where: filters,
       limit: +PER_PAGE,
       offset: offset,
+      include: "user",
     });
-    let userList = {};
-
-    
-    for (const customer of customerList) {
-      const user = await customer.getUser();
-      userList[customer.name] = user.name;
-    }
-    
-    console.log(userList);
+   
 
     const msg = req.flash("msg");
     if (!req.cookies.auth) {
@@ -91,7 +84,6 @@ module.exports = {
         page,
         getPaginateUrl,
         msg,
-        userList
       });
     } else {
       res.render("customers/index", {
@@ -122,7 +114,10 @@ module.exports = {
     if (errors.isEmpty()) {
       //Thêm dữ liệu
       const customer = await Customer;
-      req.body.user_id = req.cookies.userId;
+      console.log(req.session.role);
+      req.body.user_id = req.session.userId;
+      console.log(req.body);
+      customer.create(req.body);
       req.flash("msg", "Thêm khách hàng thành công");
       res.redirect("/customers");
     } else {

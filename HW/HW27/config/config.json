@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "123456",
-    "database": "f8_backend_cli",
+    "database": "backend_cli_hw",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "port": "3307"

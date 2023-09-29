@@ -1,4 +1,3 @@
-
 const { User } = require("../models");
 
 module.exports = {
@@ -47,10 +46,9 @@ module.exports = {
       req.flash("msg", "Nhập sai password");
       res.redirect("/");
     } else {
-      
       res.cookie("auth", "logged");
-      req.session.role= customerInfo.role;
-      req.session.userId= customerInfo.id;
+      req.session.role = customerInfo.role;
+      req.session.userId = customerInfo.id;
       res.redirect("/customers");
     }
   },
@@ -59,7 +57,7 @@ module.exports = {
     const { newName, newEmail, newPassword } = req.body;
     req.session.previousEmail = newEmail;
     req.session.previousName = newName;
-   
+
     const customer = await User;
     const customerCheck = await customer.findOne({
       where: { email: newEmail },

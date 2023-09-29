@@ -17,7 +17,7 @@ module.exports = {
        email:`hoangan@gmail.com`,
        password: `1`,
        status: 1,
-       province_id:1,
+       province_id:1,user_id:1,
        createdAt: new Date(),
       updatedAt: new Date()
      },
@@ -27,6 +27,7 @@ module.exports = {
       password: `123456`,
       status: 0,
       province_id:2,
+      user_id:2,
       createdAt: new Date(),
      updatedAt: new Date()
     },
@@ -36,6 +37,7 @@ module.exports = {
       password: `123456`,
       status: 1,
       province_id:1,
+      user_id:1,
       createdAt: new Date(),
      updatedAt: new Date()
     }], {});
