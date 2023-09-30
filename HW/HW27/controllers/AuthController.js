@@ -1,5 +1,6 @@
 const { User } = require("../models");
-
+const transporter = require("../utils/emailConfirm");
+const { EMAIL } = process.env;
 module.exports = {
   login(req, res) {
     const msg = req.flash("msg");
@@ -26,7 +27,7 @@ module.exports = {
 
     const customer = await User;
     const customerInfo = await customer.findOne({ where: { email: username } });
-    console.log(customerInfo);
+    console.log(typeof customerInfo.status + "  asdad " + customerInfo.id);
     if (emailForm.test(username) === false) {
       req.flash("msg", "Email không phù hợp");
       res.redirect("/");
@@ -44,6 +45,9 @@ module.exports = {
       res.redirect("/");
     } else if (customerInfo.password !== password) {
       req.flash("msg", "Nhập sai password");
+      res.redirect("/");
+    } else if (customerInfo.status !== 1) {
+      req.flash("msg", "Tài khoản chưa được kích hoạt");
       res.redirect("/");
     } else {
       res.cookie("auth", "logged");
@@ -76,6 +80,21 @@ module.exports = {
       });
       req.flash("msg", "Đăng ký thành công");
       res.redirect("/");
+      //Gửi mail
+      const mailOptions = {
+        from: EMAIL,
+        to: newEmail,
+        subject: "Registration Confirmation",
+        text: `Hello ${newName},\n\nThank you for registering on our website!,\nThis is your confirmation link ${link}`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
     }
   },
   logout(req, res) {
