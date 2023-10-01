@@ -31,6 +31,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue:0
+      },verificationToken:{
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

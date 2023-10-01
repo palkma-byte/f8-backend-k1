@@ -1,6 +1,8 @@
 const { User } = require("../models");
 const transporter = require("../utils/emailConfirm");
 const { EMAIL } = process.env;
+const jwt = require("jsonwebtoken");
+
 module.exports = {
   login(req, res) {
     const msg = req.flash("msg");
@@ -77,15 +79,30 @@ module.exports = {
         name: newName,
         email: newEmail,
         password: newPassword,
+        //generate key
+        verificationToken: jwt.sign({ email: newEmail }, "afuzzycat", {
+          expiresIn: "10h",
+        }),
       });
+
       req.flash("msg", "Đăng ký thành công");
       res.redirect("/");
-      //Gửi mail
+      //Gửi mail (tạo token)
+
+      const token = newUser.verificationToken;
+      console.log(newUser);
+      console.log("Token: " + token);
+      const verificationLink = `http://localhost:3000/verify?token=${token}`;
+
       const mailOptions = {
         from: EMAIL,
         to: newEmail,
         subject: "Registration Confirmation",
-        text: `Hello ${newName},\n\nThank you for registering on our website!,\nThis is your confirmation link ${link}`,
+        html: `
+    <p>Hello ${newName},</p>
+    <p>Thank you for registering on our website! Please click the following link to verify your email:</p>
+    <p><a href="${verificationLink}">Click here to verify</a></p>
+  `,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -100,8 +117,33 @@ module.exports = {
   logout(req, res) {
     req.flash("msg", "Đăng xuất thành công");
     res.clearCookie("auth");
-    res.clearCookie("userId");
-    res.clearCookie("role");
     res.redirect("/");
+  },
+  verify: async (req, res) => {
+    const token = req.query.token;
+    try {
+      const decoded = jwt.verify(token, "afuzzycat");
+      console.log(decoded.email);
+      const customer = await User;
+      await User.update(
+        { status: 1 },
+        {
+          where: {
+            email: decoded.email,
+          },
+        }
+      );
+      const customerInfo = await customer.findOne({
+        where: { email: decoded.email },
+      });
+      res.cookie("auth", "logged");
+      req.session.role = customerInfo.role;
+      req.session.userId = customerInfo.id;
+      req.flash("msg", "Tài khoản kích hoạt thành công");
+      res.redirect("/customers");
+    } catch (error) {
+      req.flash("msg", "invalid token");
+      res.redirect("/");
+    }
   },
 };
