@@ -1,0 +1,35 @@
+<h1 class="text-center">Đăng nhập</h1>
+<%- msg.length ? `<div class = "alert ">${msg}</div>` : '' %>
+<%- msgPassport.length ? `<div class = "alert alert-${msgType}">${msgPassport}</div>` : '' %>
+<form action="" method="post">
+  
+  <div class="mb-3">
+    <label for="">Email</label>
+    <input
+      type="email"
+      name="email"
+      class="form-control"
+      placeholder="Email ..."
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="">Mật khẩu</label>
+    <input
+      type="password"
+      name="password"
+      class="form-control"
+      placeholder="Mật khẩu ..."
+      required
+    />
+  </div>
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+  </div>
+  <div class="d-grid mt-3">
+    <a href="/auth/register" class="btn btn-primary">Đăng ký</a>
+  </div>
+  <div class="d-grid mt-3">
+    <a href="/auth/forget-password" class="btn btn-primary">Quên mật khẩu</a>
+  </div>
+</form>
