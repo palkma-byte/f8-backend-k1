@@ -116,6 +116,9 @@ module.exports = {
       res.redirect("/auth/login");
     }
   },
+  loginGoogle: async (req, res) => {
+    res.send("Google");
+  },
 };
 
 /**

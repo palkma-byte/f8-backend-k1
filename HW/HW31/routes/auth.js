@@ -1,24 +1,17 @@
 var express = require("express");
 var router = express.Router();
 const passport = require("passport");
-
 const AuthController = require("../controllers/AuthController");
 
 const isLogin = (req, res, next) => {
   if (req.user) {
-    res.redirect("/auth/index");
-  }
-
-  next();
-};
-const isLogout = (req, res, next) => {
-  if (!req.user) {
-    res.redirect("/auth/login");
+    res.redirect("/");
   }
 
   next();
 };
 
+/* Authentication Routes */
 router.get("/login", isLogin, AuthController.login);
 router.post(
   "/login",
@@ -31,24 +24,39 @@ router.post(
 router.get("/register", isLogin, AuthController.register);
 router.post("/register", AuthController.handleRegister);
 
-router.get("/index", isLogout, AuthController.index);
-
 router.get("/logout", AuthController.logout);
 
-router.get("/forget-password", isLogin, AuthController.forgetPassword);
-router.post("/forget-password", AuthController.handleForgetPassword);
-
-router.get("/new-password", isLogin, AuthController.changePassword);
-router.post("/new-password", AuthController.handleChangePassword);
-
+//google
 router.get("/google/redirect", passport.authenticate("google"));
 
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/auth/index",
     failureRedirect: "/auth/login",
-    failureFlash: true,
+    failureMessage: true,
+    successRedirect: "/",
+  })
+);
+//github
+router.get("/github/redirect", passport.authenticate("github"));
+
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    failureRedirect: "/auth/login",
+    failureMessage: true,
+    successRedirect: "/",
+  })
+);
+
+router.get("/facebook/redirect", passport.authenticate("facebook"));
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    failureRedirect: "/auth/login",
+    failureMessage: true,
+    successRedirect: "/",
   })
 );
 
