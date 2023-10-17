@@ -1,0 +1,16 @@
+<h2>Update URL</h2>
+
+<form action="" method="post">
+    <div class="form-group">
+        <label for="oldUrl">Original URL:</label>
+        <input type="text" class="form-control" id="oldUrl" name="oldUrl" placeholder="Enter Old URL" value="<%= link.fullVer %>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="newUrl">New URL Code:</label>
+        <input type="text" class="form-control" id="codeUrl" name="codeUrl" placeholder="Enter New URL Code" value="<%= link.code %>" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/" class="btn btn-primary">Home</a>
+</form>
