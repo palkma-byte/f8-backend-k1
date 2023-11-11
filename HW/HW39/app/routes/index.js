@@ -3,16 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("home")
+  res.render("home");
 });
 router.get("/profile", function (req, res, next) {
   const user = req.cookies.user;
   if (!user) {
-    res.redirect("http://localhost:3001");
+    res.redirect("/");
+  } else {
+    res.render("index", { user });
   }
   // console.log(req.user);
-
-  res.render("index", { user });
 });
 router.get("/logout", function (req, res) {
   res.clearCookie("user");
